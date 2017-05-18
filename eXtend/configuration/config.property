@@ -1,0 +1,4 @@
+username=rgajbhiye
+password=robin1
+url=192.168.25.245:8312/webui/servlet/login?default
+excelToExcute=.//testdata//testdata.xlsx
