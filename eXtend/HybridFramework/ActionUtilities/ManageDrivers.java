@@ -2,9 +2,15 @@ package ActionUtilities;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.security.Credentials;
+import org.openqa.selenium.security.UserAndPassword;
 
 //Author: Robin Gajbhiye, Date:04June2016
 
@@ -28,7 +34,7 @@ public class ManageDrivers {
 		{
 			driver =LaunchChrome(url,username,password);
 		}
-		if (browser=="FireFox")
+		if (browser.equalsIgnoreCase("FireFox"))
 		{
 			driver = LaunchFirefox(url,username,password);
 		}
@@ -55,20 +61,32 @@ public class ManageDrivers {
 	}
 
 	private static WebDriver LaunchFirefox(String url,String username, String password) {
+		System.out.println("Opening FF");
 		WebDriver driver = new FirefoxDriver();
-		driver.get(username+":"+password+"@"+url);
+		System.out.println("Opening FF");
+		driver.get("https://"+username+":"+password+"@"+url);
 		driver.manage().window().maximize();
 		return driver;
 	}
 
-	private static WebDriver LaunchChrome(String url,String username, String password) {
+	private static WebDriver LaunchChrome(String url,String username, String password) throws Exception {
 		
 		System.setProperty("webdriver.chrome.driver",".//chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		System.out.println("opening url  "+"https://"+username+":"+password+"@"+url);
-		driver.get("https://"+username+":"+password+"@"+url);
-		driver.manage().window().maximize();
+	     ChromeOptions cOptions = new ChromeOptions();
+
+	    cOptions.addArguments("disable-infobars");
+
+	  WebDriver  driver = new ChromeDriver(cOptions);
+	  
+	  driver.get(url);
+	  
+     Runtime.getRuntime().exec(".//LogineXtend1.exe");
+     Thread.sleep(5000);
+
+     driver.manage().window().maximize();
+     
 		driver.manage().timeouts().implicitlyWait(20000, TimeUnit.SECONDS);
+		
 		return driver;
 	}
 

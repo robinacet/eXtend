@@ -3,6 +3,7 @@ package Executor;
 import ActionUtilities.ManageDrivers;
 import ActionUtilities.TakeScreenshot;
 import Keywords.AddLine;
+import Keywords.Assertion;
 import Keywords.SendText;
 import Keywords.click;
 import Keywords.drag;
@@ -69,9 +70,13 @@ public class ExecuteKeywords {
 		    break;
 		    
 		case "GetFinTransAmt":
-			 getFinTransAmt.getFinTransAmount(stepNumber, TestData1, TestData2, TestData3, TestData4, "17");
+			 getFinTransAmt.getFinTransAmount(stepNumber, TestData1, TestData2, TestData3, TestData4);
 			    break;
 		    
+		case "Assert":
+			 Assertion.AssertValues(TestData1, TestData2);
+			    break;	    
+			    
 		    default:
 		    	System.out.println("Invalid step");
 		    	
@@ -81,5 +86,7 @@ public class ExecuteKeywords {
 	
 		}
 	}
+
+	
 
 }

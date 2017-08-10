@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import ActionUtilities.ManageDrivers;
+import AppKeywords.GetSessionSeq;
 
 public class getMauc {
 	
@@ -15,7 +16,7 @@ public class getMauc {
 	{
 		WebDriver driver= ManageDrivers.GetDriver();
 		openSession.openTheSession("whina1512m000");
-		int sesSeq = getText.getnumber(sessionSeq);
+		int sesSeq = GetSessionSeq.GetTabSeq();
 		String session = "whina1512m000-";
 		String find = session+sesSeq+"-button-std-edit.find";
 		String part1 = session+(sesSeq+1)+"-whinr112.item.segment.2-lookup-widget";

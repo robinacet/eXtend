@@ -9,12 +9,12 @@ import ActionUtilities.ManageDrivers;
 
 public class getText {
 	
-	public static void getTheText(String Locator,String Stepnumber) throws IOException
+	public static void getTheText(String Locator,String stepNumber) throws IOException
 	{
 		WebDriver driver= ManageDrivers.GetDriver();
 		String text = driver.findElement(By.id(Locator)).getAttribute("value");
 		System.out.println("Your Data is "+text);
-		int row= getnumber(Stepnumber);
+		int row= getnumber(stepNumber);
 		
 		ActionUtilities.ExcelWrite.WriteTheExcel(text, row);
 	}

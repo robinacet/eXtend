@@ -45,18 +45,38 @@ public class ExcelRead {
 		     	{
 		    		//Loop over all the rows
 		    		Row row = sh1.getRow(i+1);
+		    		
 		    		//Create a loop to print cell values in a row
 		    		for (int j = 0; j < column; j++) 
 		    		{
-		    			
-		    			//Print excel data in console
+		    			if(row.getCell(j).getCellType()==row.getCell(j).CELL_TYPE_FORMULA)
+		    			object[i][j] = "X-X-X-X-X";
+		    			else
 		    			object[i][j] = row.getCell(j).toString();
+		    		
+		    		}
 		    			
 		    		}
-				
-
-		     	}
-		     
+		    		
+//		    		for (int i = 0; i < rowCount; i++) 
+//			     	{
+//			    		//Loop over all the rows
+//			    		
+//			    		//Create a loop to print cell values in a row
+//			    		for (int j = 0; j < column; j++) 
+//			    		{
+//			    			//Print excel data in console
+//			    			System.out.println(object[i][j].toString());
+//			    			
+//			    			
+//			    		}
+//					
+//
+//			     	
+//				
+//
+//		     	}
+//		     
 				return object;
 				
 				

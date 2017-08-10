@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -25,11 +26,12 @@ public class ExcelWrite {
 		       
 		       sh1.getRow(row).getCell(9).setCellValue(data);
 		       
-		      
+		        
 		       fis.close();
-				
+		       XSSFFormulaEvaluator.evaluateAllFormulaCells(wb);
 				FileOutputStream outFile =new FileOutputStream(src);
 				wb.write(outFile);
+				
 				outFile.close();
 		       
 	}

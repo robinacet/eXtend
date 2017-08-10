@@ -17,12 +17,12 @@ import Keywords.openSession;
 public class getFinTransAmt {
 	
 	
-	public static void getFinTransAmount(String stepnumber,String origin,String OrderNo, String position,String FinTrans, String SesSeq) throws InterruptedException, IOException
+	public static void getFinTransAmount(String stepnumber,String origin,String OrderNo, String position,String FinTrans) throws InterruptedException, IOException
 	{
 		String amt = null;
 		WebDriver driver= ManageDrivers.GetDriver();
 		openSession.openTheSession("tfgld4510m000");
-		int ss = getText.getnumber(SesSeq);
+		int ss = GetSessionSeq.GetTabSeq();
 		click.clickTheButton("tfgld4510m000-"+ss+"-button-std-edit.find");
 		click.clickTheButton("tfgld4510m000-"+(ss+1)+"-tfgld418.tror-control-trigger-button");
 	Thread.sleep(2000);
@@ -41,35 +41,29 @@ public class getFinTransAmt {
 		click.clickTheButton("tfgld4510m000-"+(ss+1)+"-tfgld418.orno-lookup-widget");
 		SendText.SendTheText("tfgld4510m000-"+(ss+1)+"-tfgld418.orno-lookup-widget", OrderNo);
 		
-		click.clickTheButton("tfgld4510m000-"+(ss+1)+"-button-std-file.save_and_close");
-		SendText.SendTheText("tfgld4510m000-"+ss+"-grid-1-tfgld418.pono-7-filter-value", position);
-		driver.findElement(By.id("tfgld4510m000-"+ss+"-grid-1-tfgld418.pono-7-filter-value")).sendKeys(Keys.TAB);
-		List<WebElement> alldata = driver.findElements(By.xpath(".//*[contains(@id,'tfgld4510m000-"+ss+"-grid-1-')][contains(@id,'widget')]"));
-		for(int i=0;i<=alldata.size();i++)
-		{
-			String data =alldata.get(i).getText();;
-			if(!alldata.get(i).getText().equalsIgnoreCase(""))
-			{
-				
-			if(position.contains(data))
-					{
-				     if(FinTrans.equalsIgnoreCase(alldata.get(i+1).getText()))
-				     {
-				    	amt= alldata.get(i+8).getText();
-				    	System.out.println(amt);
-				    	break;
-				     }
-				
-					}
-			}
-	
-		}
+		driver.findElement(By.xpath(".//*[contains(@id,'tfgld418.orno-lookup-widget')]")).sendKeys(Keys.ENTER);
+	 
+	 Thread.sleep(2000);
+	 driver.findElement(By.xpath(".//*[contains(@id,'tfgld418.pono-"+ss+"-filter-value')]")).sendKeys(position);
+	 Thread.sleep(2000);
+	 
+	 
+	 driver.findElement(By.xpath(".//*[contains(@id,'filter-value-control-widget-label')]")).click();
+	 Thread.sleep(2000);
+//	 driver.findElement(By.xpath(".//*[contains(@id,'filter-value-control-widget-label')]")).click();
+//	 Thread.sleep(2000);
+	 driver.findElement(By.xpath(".//*[text()='Issue']")).click();
+	 
+	 
+			 
+   String amount = driver.findElement(By.xpath("(.//*[contains(@id,'grid-1-form.amount')][contains(@id,'widget')])[1]")).getText();
+   System.out.println(amount);
 		
 		
 		click.clickTheButton("tfgld4510m000-"+ss+"-button-std-file.save_and_close");
         int row= getText.getnumber(stepnumber);
 		
-		ActionUtilities.ExcelWrite.WriteTheExcel(amt, row);
+		ActionUtilities.ExcelWrite.WriteTheExcel(amount, row);
 		
 	}
 
